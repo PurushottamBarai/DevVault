@@ -31,7 +31,9 @@ export default function Register() {
       showToast('Account created successfully');
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed. Please try again.');
+      const errData = err.response?.data?.error;
+      const msg = typeof errData === 'string' ? errData : errData?.message || 'Registration failed. Please try again.';
+      setError(msg);
     } finally {
       setLoading(false);
     }

@@ -33,7 +33,9 @@ export default function Login() {
       showToast('Logged in successfully');
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Email or password is incorrect.');
+      const errData = err.response?.data?.error;
+      const msg = typeof errData === 'string' ? errData : errData?.message || 'Email or password is incorrect.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
