@@ -9,7 +9,7 @@ const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 function generateToken(userId) {
   return jwt.sign(
     { id: userId },
-    process.env.JWT_SECRET || 'dev_secret_key_snippets_vault_32_characters_min',
+    process.env.JWT_SECRET,
     { expiresIn: JWT_EXPIRES_IN }
   );
 }

@@ -1,97 +1,91 @@
-# Developer Snippet Vault & AI Publisher
+# DevVault
 
-Production-grade full-stack snippet vault built with Node.js, Express, React, Tailwind CSS, MongoDB Atlas, and Google Gemini API.
+A modern, full-stack code snippet manager for developers with automated AI tagging, summaries, and instant search.
+
+**Live Demo:** [https://devvault-app-blond.vercel.app](https://devvault-app-blond.vercel.app/)
+
+---
 
 ## Features
 
-- **Authentication**: JWT authentication stored in httpOnly, Secure, SameSite cookies with bcrypt (salt cost 12).
-- **Snippet Management**: Full CRUD capabilities with ownership verification (`owner == req.user.id`).
-- **AI Auto-Tagging & Summaries**: Google Gemini API generates 3-5 normalized lowercase tags and single-sentence summaries upon saving.
-- **Resilient AI Pipeline**: Non-blocking saves with fallback states and on-demand metadata regeneration.
-- **Design System**: Linear/Vercel/GitHub-inspired interface featuring Zinc neutrals and deep teal accents (`#0F766E` / `#2DD4BF`).
-- **Developer UX**: Global search (`Ctrl+K` / `/`), instant tag filters, line numbers, one-click copy, and system-synced dark mode.
-- **Serverless Ready**: Configured for Vercel deployment with cached Mongoose connection pools.
+- **Instant AI Summaries & Tags**: Automatically extracts clean, relevant tags and concise code summaries using Groq Cloud AI (with Gemini fallback).
+- **Secure Authentication**: Protected routes with JWT authentication and secure cookie handling.
+- **Full Snippet Management**: Create, edit, organize, delete, and copy snippets across various programming languages.
+- **Quick Search & Filter**: Instant search by snippet title, code content, or language/tags.
+- **Modern Developer UI**: Clean dark interface built with Tailwind CSS, custom code highlighting, and toast feedback.
 
-## Monorepo Architecture
+---
 
-```
-d:/DevVault/
-├── client/
-│   ├── src/
-│   │   ├── api/            # Axios API client with session interceptors
-│   │   ├── components/     # CodeBlock, SnippetCard, Navbar, ConfirmDialog, TagBadge
-│   │   ├── context/        # AuthContext, ThemeContext, ToastContext
-│   │   ├── lib/            # Language palettes & constants
-│   │   ├── pages/          # Landing, Login, Register, Dashboard, SnippetNew, SnippetEdit, SnippetDetail
-│   │   ├── routes/         # ProtectedRoute
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── vercel.json         # SPA URL rewrite configuration
-│   └── vite.config.js      # Vite build & local API proxy
-├── server/
-│   ├── api/
-│   │   └── index.js        # Vercel serverless function entry
-│   ├── src/
-│   │   ├── config/         # Cached MongoDB connection pool
-│   │   ├── controllers/    # Auth and Snippet business logic
-│   │   ├── middleware/     # JWT verification, Zod validation, error handler
-│   │   ├── models/         # User and Snippet Mongoose schemas
-│   │   ├── routes/         # Express API routes with rate limiters
-│   │   ├── services/       # Google Gemini AI integration
-│   │   ├── validators/     # Zod input validation schemas
-│   │   ├── app.js          # Express middleware and routing
-│   │   └── server.js       # Standalone local HTTP server
-│   ├── vercel.json         # Serverless routing configuration
-│   └── .env.example
-└── package.json
+## Tech Stack
+
+- **Frontend**: React 18, Vite, Tailwind CSS, Lucide Icons, Axios
+- **Backend**: Node.js, Express, Mongoose (MongoDB Atlas), Zod
+- **AI Integration**: Groq SDK (`qwen/qwen3.8-27b`), Google Gemini API
+- **Deployment**: Vercel
+
+---
+
+## Getting Started
+
+### 1. Prerequisites
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- A MongoDB Atlas database connection URI
+- A free [Groq Cloud API Key](https://console.groq.com) or [Google Gemini API Key](https://aistudio.google.com/)
+
+### 2. Clone & Install
+
+```bash
+git clone https://github.com/your-username/DevVault.git
+cd DevVault
+
+# Install root, server, and client dependencies
+npm run install:all
 ```
 
-## Environment Variables
+### 3. Environment Setup
 
-### Server (`server/.env`)
+#### Server Configuration (`server/.env`)
+Create a `.env` file inside the `server/` directory:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/snippet-vault?retryWrites=true&w=majority
-JWT_SECRET=supersecretjwtkeythatisatleast32characterslong
-GEMINI_API_KEY=your_gemini_api_key_here
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+GROQ_API_KEY=your_groq_api_key
+GEMINI_API_KEY=your_gemini_api_key
 CLIENT_URL=http://localhost:5173
 NODE_ENV=development
 ```
 
-### Client (`client/.env`)
+#### Client Configuration (`client/.env`)
+Create a `.env` file inside the `client/` directory (optional for local development):
 
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-## Quick Start
+### 4. Run Locally
 
-### 1. Install Dependencies
+Start both server and client concurrently from the project root:
 
 ```bash
-npm run install:all
-```
-
-### 2. Run Locally
-
-To run the backend:
-```bash
-cd server
-npm start
-```
-
-To run the frontend:
-```bash
-cd client
 npm run dev
 ```
 
-## Vercel Deployment
+Or run them individually:
 
-1. Push repository to GitHub.
-2. In Vercel, deploy two projects or import the monorepo:
-   - **Server Project**: Set Root Directory to `server`. Configure `MONGODB_URI`, `JWT_SECRET`, `GEMINI_API_KEY`, `CLIENT_URL`, and `NODE_ENV=production`.
-   - **Client Project**: Set Root Directory to `client`, framework to `Vite`. Configure `VITE_API_URL` to point to the server deployment URL.
-3. Configure MongoDB Atlas Network Access (`0.0.0.0/0`) for serverless connections.
+```bash
+# Terminal 1 - Backend (port 5000)
+npm run dev:server
+
+# Terminal 2 - Frontend (port 5173)
+npm run dev:client
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## License
+
+This project is open-source and available under the [MIT License](LICENSE).

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Snippet } from '../models/Snippet.js';
 import { generateMeta } from '../services/ai.service.js';
+import { normalizeTag, normalizeTags } from '../utils/tag.util.js';
 
 export async function getSnippets(req, res, next) {
   try {
@@ -16,7 +17,7 @@ export async function getSnippets(req, res, next) {
     }
 
     if (tag && tag !== 'all') {
-      const cleanTag = tag.replace(/^#+/, '').toLowerCase();
+      const cleanTag = normalizeTag(tag);
       query.tags = cleanTag;
     }
 
@@ -73,7 +74,7 @@ export async function createSnippet(req, res, next) {
       language: language.trim().toLowerCase(),
       notes: notes || '',
       aiStatus: 'pending',
-      tags: Array.isArray(tags) ? Array.from(new Set(tags.map((t) => t.replace(/^#+/, '').trim().toLowerCase()))).filter(Boolean) : [],
+      tags: normalizeTags(tags),
       summary: typeof summary === 'string' ? summary.trim() : ''
     });
 
@@ -149,7 +150,7 @@ export async function updateSnippet(req, res, next) {
     }
 
     if (tags !== undefined) {
-      snippet.tags = Array.from(new Set(tags.map((t) => t.replace(/^#+/, '').trim().toLowerCase()))).filter(Boolean);
+      snippet.tags = normalizeTags(tags);
     }
     if (summary !== undefined) {
       snippet.summary = summary.trim();

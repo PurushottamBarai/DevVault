@@ -4,6 +4,7 @@ import { ArrowLeft, RefreshCw, X, Loader2 } from 'lucide-react';
 import api from '../api/client';
 import { useToast } from '../context/ToastContext';
 import { SUPPORTED_LANGUAGES, getLanguageInfo } from '../lib/constants';
+import { normalizeTag } from '../lib/tag';
 
 export default function SnippetEdit() {
   const { id } = useParams();
@@ -78,7 +79,7 @@ export default function SnippetEdit() {
   const handleAddTag = (e) => {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
-      const clean = newTagInput.replace(/^#+/, '').trim().toLowerCase();
+      const clean = normalizeTag(newTagInput);
       if (clean && !tags.includes(clean) && tags.length < 10) {
         setTags([...tags, clean]);
         setNewTagInput('');
