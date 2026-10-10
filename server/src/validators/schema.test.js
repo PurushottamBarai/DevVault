@@ -1,7 +1,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { createSnippetSchema, updateSnippetSchema } from './snippet.schema.js';
-import { registerSchema, loginSchema } from './auth.schema.js';
+import { registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } from './auth.schema.js';
 
 describe('Validation Schemas', () => {
   describe('createSnippetSchema', () => {
@@ -39,6 +39,16 @@ describe('Validation Schemas', () => {
     test('loginSchema validates email and password presence', () => {
       assert.equal(loginSchema.safeParse({ email: 'alice@example.com', password: 'p' }).success, true);
       assert.equal(loginSchema.safeParse({ email: 'bad-email', password: 'p' }).success, false);
+    });
+
+    test('forgotPasswordSchema validates email format', () => {
+      assert.equal(forgotPasswordSchema.safeParse({ email: 'user@example.com' }).success, true);
+      assert.equal(forgotPasswordSchema.safeParse({ email: 'invalid' }).success, false);
+    });
+
+    test('resetPasswordSchema requires at least 8 chars', () => {
+      assert.equal(resetPasswordSchema.safeParse({ password: 'validPass123' }).success, true);
+      assert.equal(resetPasswordSchema.safeParse({ password: 'short' }).success, false);
     });
   });
 });

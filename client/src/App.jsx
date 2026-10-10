@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import SnippetNew from './pages/SnippetNew';
 import SnippetDetail from './pages/SnippetDetail';
 import SnippetEdit from './pages/SnippetEdit';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 export default function App() {
@@ -30,6 +32,8 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route
             path="/dashboard"
             element={
