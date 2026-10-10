@@ -1,15 +1,31 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Plus, Sun, Moon, LogOut, Code2, X } from 'lucide-react';
+import { Search, Plus, Sun, Moon, LogOut, Code2, X, Trash2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useToast } from '../context/ToastContext';
+import ConfirmDialog from './ConfirmDialog';
 
 export default function Navbar({ searchQuery = '', onSearchChange }) {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout, deleteAccount, isAuthenticated } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccount();
+      showToast('Account and all snippets permanently deleted');
+      navigate('/');
+    } catch {
+      showToast('Could not delete account. Please try again.', 'error');
+    } finally {
+      setConfirmDeleteOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -119,15 +135,35 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
                           logout();
                           navigate('/login');
                         }}
-                        className="w-full px-3 py-2 text-left text-destructive hover:bg-destructive-subtle flex items-center gap-2"
+                        className="w-full px-3 py-2 text-left text-muted hover:text-foreground hover:bg-muted flex items-center gap-2"
                       >
                         <LogOut className="w-3.5 h-3.5" />
                         Log out
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUserMenuOpen(false);
+                          setConfirmDeleteOpen(true);
+                        }}
+                        className="w-full px-3 py-2 text-left text-destructive hover:bg-destructive-subtle flex items-center gap-2"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        Delete account
                       </button>
                     </div>
                   </>
                 )}
               </div>
+              <ConfirmDialog
+                isOpen={confirmDeleteOpen}
+                title="Delete Account"
+                description="Are you sure you want to delete your account? All your snippets and data will be permanently removed. This action cannot be undone."
+                confirmText="Delete my account"
+                onConfirm={handleDeleteAccount}
+                onCancel={() => setConfirmDeleteOpen(false)}
+                isDanger={true}
+              />
             </>
           ) : (
             <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
+import { Snippet } from '../models/Snippet.js';
 
 const COOKIE_NAME = 'token';
 const JWT_EXPIRES_IN = '7d';
@@ -116,6 +117,24 @@ export async function getMe(req, res, next) {
         createdAt: user.createdAt
       }
     });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function deleteAccount(req, res, next) {
+  try {
+    const userId = req.user.id;
+    await Snippet.deleteMany({ owner: userId });
+    await User.findByIdAndDelete(userId);
+    const isProduction = process.env.NODE_ENV === 'production';
+    res.clearCookie(COOKIE_NAME, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/'
+    });
+    return res.status(200).json({ message: 'Account deleted successfully' });
   } catch (error) {
     next(error);
   }
