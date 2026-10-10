@@ -5,7 +5,6 @@ import api from '../api/client';
 import { useToast } from '../context/ToastContext';
 import { SUPPORTED_LANGUAGES, getLanguageInfo } from '../lib/constants';
 import { normalizeTag } from '../lib/tag';
-
 export default function SnippetEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -165,7 +164,7 @@ export default function SnippetEdit() {
       </div>
 
       {error && (
-        <div className="p-3 mb-6 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-[6px]">
+        <div className="p-3 mb-6 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-md">
           {error}
         </div>
       )}
@@ -181,7 +180,7 @@ export default function SnippetEdit() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full h-[36px] px-3 text-[14px] bg-card border border-strong rounded-[6px] text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full h-9 px-3 text-[14px] bg-card border border-strong rounded-md text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
@@ -192,7 +191,7 @@ export default function SnippetEdit() {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full sm:w-[240px] h-[36px] px-3 text-[13px] bg-card border border-strong rounded-[6px] text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full sm:w-60 h-9 px-3 text-[13px] bg-card border border-strong rounded-md text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             >
               {SUPPORTED_LANGUAGES.map((lang) => {
                 const info = getLanguageInfo(lang);
@@ -215,8 +214,8 @@ export default function SnippetEdit() {
               </span>
             </div>
 
-            <div className="border border-strong rounded-[8px] overflow-hidden bg-code flex">
-              <div className="select-none py-3 px-2 text-right text-code-line border-r border-border/50 text-[12px] font-mono leading-[20px] bg-code-header/40 min-w-[36px]">
+            <div className="border border-strong rounded-lg overflow-hidden bg-code flex">
+              <div className="select-none py-3 px-2 text-right text-code-line border-r border-border/50 text-[12px] font-mono leading-5 bg-code-header/40 min-w-9">
                 {lines.map((_, i) => (
                   <div key={i}>{i + 1}</div>
                 ))}
@@ -228,7 +227,7 @@ export default function SnippetEdit() {
                 onKeyDown={handleCodeKeyDown}
                 rows={14}
                 required
-                className="flex-1 p-3 text-[13px] leading-[20px] font-mono bg-code text-foreground focus:outline-none resize-y min-h-[260px] overflow-x-auto whitespace-pre"
+                className="flex-1 p-3 text-[13px] leading-5 font-mono bg-code text-foreground focus:outline-none resize-y min-h-65 overflow-x-auto whitespace-pre"
                 style={{ tabSize: 2 }}
               />
             </div>
@@ -242,21 +241,21 @@ export default function SnippetEdit() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={4}
-              className="w-full p-3 text-[13px] bg-card border border-strong rounded-[6px] text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-y"
+              className="w-full p-3 text-[13px] bg-card border border-strong rounded-md text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-y"
             />
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-3">
             <Link
               to={`/snippets/${id}`}
-              className="h-[36px] px-4 text-[13px] font-medium text-muted hover:text-foreground inline-flex items-center"
+              className="h-9 px-4 text-[13px] font-medium text-muted hover:text-foreground inline-flex items-center"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="h-[36px] px-5 bg-primary text-primary-foreground text-[13px] font-medium rounded-[6px] hover:opacity-90 transition-opacity inline-flex items-center gap-2 disabled:opacity-50"
+              className="h-9 px-5 bg-primary text-primary-foreground text-[13px] font-medium rounded-md hover:opacity-90 transition-opacity inline-flex items-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               {saving ? (
                 <>
@@ -271,7 +270,7 @@ export default function SnippetEdit() {
         </div>
 
         <div className="lg:col-span-4 space-y-4">
-          <div className="border border-border rounded-[8px] bg-surface p-5 space-y-4">
+          <div className="border border-border rounded-lg bg-surface p-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono uppercase text-muted tracking-wider font-semibold">
                 AI Metadata
@@ -295,7 +294,7 @@ export default function SnippetEdit() {
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
                 rows={3}
-                className="w-full p-2.5 text-[13px] bg-card border border-strong rounded-[6px] text-foreground focus:outline-none focus:border-primary resize-y"
+                className="w-full p-2.5 text-[13px] bg-card border border-strong rounded-md text-foreground focus:outline-none focus:border-primary resize-y"
                 placeholder="One sentence plain-English summary..."
               />
             </div>
@@ -308,7 +307,7 @@ export default function SnippetEdit() {
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1 h-[22px] px-2 text-[12px] font-mono bg-muted text-muted rounded-[4px]"
+                    className="inline-flex items-center gap-1 h-5.5 px-2 text-[12px] font-mono bg-muted text-muted rounded-sm"
                   >
                     #{tag}
                     <button
@@ -327,7 +326,7 @@ export default function SnippetEdit() {
                 onChange={(e) => setNewTagInput(e.target.value)}
                 onKeyDown={handleAddTag}
                 placeholder="Type tag and press Enter"
-                className="w-full h-[32px] px-2.5 text-[12px] font-mono bg-card border border-strong rounded-[6px] text-foreground focus:outline-none focus:border-primary"
+                className="w-full h-8 px-2.5 text-[12px] font-mono bg-card border border-strong rounded-md text-foreground focus:outline-none focus:border-primary"
               />
             </div>
           </div>

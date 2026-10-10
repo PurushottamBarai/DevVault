@@ -46,10 +46,10 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
   }, [isAuthenticated, navigate]);
 
   return (
-    <header className="sticky top-0 z-40 h-[56px] w-full border-b border-border/70 navbar-blur px-4 sm:px-6 transition-colors">
-      <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 h-14 w-full border-b border-border/70 navbar-blur px-4 sm:px-6 transition-colors">
+      <div className="mx-auto flex h-full max-w-300 items-center justify-between gap-4">
         <Link to={isAuthenticated ? '/dashboard' : '/'} className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-primary text-primary-foreground font-semibold text-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground font-semibold text-sm">
             <Code2 className="w-4 h-4" />
           </div>
           <span className="font-semibold text-[15px] tracking-tight text-foreground">
@@ -67,7 +67,7 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
                 placeholder="Search snippets..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-                className="w-full h-[36px] pl-9 pr-14 text-[13px] bg-surface border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full h-9 pl-9 pr-14 text-[13px] bg-surface border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
               <div className="absolute right-2 flex items-center gap-1">
                 {searchQuery ? (
@@ -93,7 +93,7 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="p-2 text-muted hover:text-foreground rounded-[6px] hover:bg-muted transition-colors"
+            className="p-2 text-muted hover:text-foreground rounded-md hover:bg-muted transition-colors"
           >
             {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -102,7 +102,7 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
             <>
               <Link
                 to="/snippets/new"
-                className="inline-flex items-center gap-1.5 h-[36px] px-3 rounded-[6px] bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition-opacity"
               >
                 <Plus className="w-4 h-4" />
                 <span className="hidden sm:inline">New snippet</span>
@@ -123,7 +123,7 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
                       className="fixed inset-0 z-20"
                       onClick={() => setUserMenuOpen(false)}
                     />
-                    <div className="absolute right-0 top-10 z-30 w-48 py-1 bg-card border border-border rounded-[8px] shadow-lg text-[13px]">
+                    <div className="absolute right-0 top-10 z-30 w-48 py-1 bg-card border border-border rounded-lg shadow-lg text-[13px]">
                       <div className="px-3 py-2 border-b border-border">
                         <p className="font-medium text-foreground truncate">{user?.name}</p>
                         <p className="text-[12px] text-muted truncate">{user?.email}</p>
@@ -169,13 +169,13 @@ export default function Navbar({ searchQuery = '', onSearchChange }) {
             <div className="flex items-center gap-2">
               <Link
                 to="/login"
-                className="h-[36px] px-3.5 inline-flex items-center text-[13px] font-medium text-foreground hover:bg-muted rounded-[6px] transition-colors"
+                className="h-9 px-3.5 inline-flex items-center text-[13px] font-medium text-foreground hover:bg-muted rounded-md transition-colors"
               >
                 Log in
               </Link>
               <Link
                 to="/register"
-                className="h-[36px] px-3.5 inline-flex items-center text-[13px] font-medium bg-primary text-primary-foreground rounded-[6px] hover:opacity-90 transition-opacity"
+                className="h-9 px-3.5 inline-flex items-center text-[13px] font-medium bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
               >
                 Sign up
               </Link>

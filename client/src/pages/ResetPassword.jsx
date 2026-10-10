@@ -41,7 +41,7 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-[calc(100vh-56px)] flex items-center justify-center p-6">
-      <div className="w-full max-w-[380px] bg-card border border-border rounded-[12px] p-6 sm:p-8 space-y-6 shadow-sm">
+      <div className="w-full max-w-95 bg-card border border-border rounded-xl p-6 sm:p-8 space-y-6 shadow-sm">
         <div>
           <h1 className="text-[22px] font-semibold text-foreground tracking-tight">Set new password</h1>
           <p className="text-[13px] text-muted mt-1">
@@ -50,14 +50,14 @@ export default function ResetPassword() {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 p-3 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-[6px]">
+          <div className="flex items-center gap-2 p-3 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-md">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {success ? (
-          <div className="p-4 bg-primary/10 border border-primary/20 rounded-[8px] space-y-2 text-center">
+          <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg space-y-2 text-center">
             <CheckCircle2 className="w-6 h-6 text-primary mx-auto" />
             <p className="text-[13px] text-foreground font-medium">Password updated!</p>
             <p className="text-[12px] text-muted">Redirecting you to login...</p>
@@ -75,7 +75,7 @@ export default function ResetPassword() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full h-[36px] px-3 pr-10 text-[14px] bg-background border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
+                  className="w-full h-9 px-3 pr-10 text-[14px] bg-background border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
                 />
                 <button
                   type="button"
@@ -97,14 +97,14 @@ export default function ResetPassword() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full h-[36px] px-3 text-[14px] bg-background border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
+                className="w-full h-9 px-3 text-[14px] bg-background border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-[36px] bg-primary text-primary-foreground font-medium text-[13px] rounded-[6px] hover:opacity-90 transition-opacity flex items-center justify-center disabled:opacity-50"
+              className="w-full h-9 bg-primary text-primary-foreground font-medium text-[13px] rounded-md hover:opacity-90 transition-opacity flex items-center justify-center disabled:opacity-50"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />

@@ -45,7 +45,7 @@ export default function Login() {
     <div className="min-h-[calc(100vh-56px)] flex">
       <div className="hidden lg:flex flex-col justify-between w-1/2 bg-[#09090b] text-[#fafafa] p-12 border-r border-[#27272a]">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-[6px] bg-teal-500/20 text-teal-400 border border-teal-500/30 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-md bg-teal-500/20 text-teal-400 border border-teal-500/30 flex items-center justify-center">
             <Code2 className="w-5 h-5" />
           </div>
           <span className="font-semibold text-[16px] tracking-tight">Snippet Vault</span>
@@ -59,7 +59,7 @@ export default function Login() {
             Save snippets and notes. Get tags and a summary for each one automatically.
           </p>
 
-          <div className="rounded-[8px] bg-[#111113] border border-[#27272a] p-4 font-mono text-[12px] text-zinc-400 space-y-1 mt-6">
+          <div className="rounded-lg bg-[#111113] border border-[#27272a] p-4 font-mono text-[12px] text-zinc-400 space-y-1 mt-6">
             <div className="text-teal-400">// Automatically tagged & indexed</div>
             <div className="text-zinc-200">const snippet = await vault.find('#jwt');</div>
             <div className="text-zinc-500">// Returns verified auth middleware snippet</div>
@@ -72,14 +72,14 @@ export default function Login() {
       </div>
 
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-[360px] space-y-6">
+        <div className="w-full max-w-90 space-y-6">
           <div>
             <h1 className="text-[24px] font-semibold text-foreground tracking-tight">Log in</h1>
             <p className="text-[13px] text-muted mt-1">Welcome back. Enter your details.</p>
           </div>
 
           {error && (
-            <div className="flex items-center gap-2 p-3 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-[6px]">
+            <div className="flex items-center gap-2 p-3 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-md">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -96,7 +96,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full h-[36px] sm:h-[36px] px-3 text-[14px] bg-background border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full h-9 sm:h-9 px-3 text-[14px] bg-background border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </div>
 
@@ -119,7 +119,7 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full h-[36px] px-3 pr-10 text-[14px] bg-background border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full h-9 px-3 pr-10 text-[14px] bg-background border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
                 <button
                   type="button"
@@ -134,7 +134,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-[36px] bg-primary text-primary-foreground font-medium text-[13px] rounded-[6px] hover:opacity-90 transition-opacity flex items-center justify-center disabled:opacity-50"
+              className="w-full h-9 bg-primary text-primary-foreground font-medium text-[13px] rounded-md hover:opacity-90 transition-opacity flex items-center justify-center disabled:opacity-50"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />

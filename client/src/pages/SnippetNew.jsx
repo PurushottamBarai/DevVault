@@ -142,7 +142,7 @@ export default function SnippetNew() {
 
   return (
     <div
-      className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8"
+      className="max-w-300 mx-auto px-4 sm:px-6 py-8"
       onKeyDown={handleKeyDown}
     >
       <div className="flex items-center justify-between mb-6">
@@ -157,7 +157,7 @@ export default function SnippetNew() {
         <div className="flex items-center gap-3">
           <Link
             to="/dashboard"
-            className="h-[36px] px-4 text-[13px] font-medium text-muted hover:text-foreground inline-flex items-center"
+            className="h-9 px-4 text-[13px] font-medium text-muted hover:text-foreground inline-flex items-center"
           >
             Cancel
           </Link>
@@ -165,7 +165,7 @@ export default function SnippetNew() {
             type="button"
             onClick={handleSubmit}
             disabled={saving}
-            className="h-[36px] px-5 bg-primary text-primary-foreground text-[13px] font-medium rounded-[6px] hover:opacity-90 transition-opacity inline-flex items-center gap-2 disabled:opacity-50 shadow-sm cursor-pointer hover:cursor-pointer"
+            className="h-9 px-5 bg-primary text-primary-foreground text-[13px] font-medium rounded-md hover:opacity-90 transition-opacity inline-flex items-center gap-2 disabled:opacity-50 shadow-sm cursor-pointer hover:cursor-pointer"
           >
             {saving ? (
               <>
@@ -189,7 +189,7 @@ export default function SnippetNew() {
       </div>
 
       {error && (
-        <div className="p-3 mb-6 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-[6px]">
+        <div className="p-3 mb-6 text-[13px] text-destructive bg-destructive-subtle border border-destructive/20 rounded-md">
           {error}
         </div>
       )}
@@ -209,7 +209,7 @@ export default function SnippetNew() {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Retry fetch with backoff"
               required
-              className="w-full h-[36px] px-3 text-[14px] bg-card border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full h-9 px-3 text-[14px] bg-card border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
@@ -220,7 +220,7 @@ export default function SnippetNew() {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full sm:w-[240px] h-[36px] px-3 text-[13px] bg-card border border-strong rounded-[6px] text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full sm:w-60 h-9 px-3 text-[13px] bg-card border border-strong rounded-md text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             >
               {SUPPORTED_LANGUAGES.map((lang) => {
                 const info = getLanguageInfo(lang);
@@ -243,8 +243,8 @@ export default function SnippetNew() {
               </span>
             </div>
 
-            <div className="border border-strong rounded-[8px] overflow-hidden bg-code flex">
-              <div className="select-none py-3 px-2 text-right text-code-line border-r border-border/50 text-[12px] font-mono leading-[20px] bg-code-header/40 min-w-[36px]">
+            <div className="border border-strong rounded-lg overflow-hidden bg-code flex">
+              <div className="select-none py-3 px-2 text-right text-code-line border-r border-border/50 text-[12px] font-mono leading-5 bg-code-header/40 min-w-9">
                 {lines.map((_, i) => (
                   <div key={i}>{i + 1}</div>
                 ))}
@@ -257,7 +257,7 @@ export default function SnippetNew() {
                 placeholder="// Paste or write snippet code here"
                 rows={12}
                 required
-                className="flex-1 p-3 text-[13px] leading-[20px] font-mono bg-code text-foreground placeholder:text-muted focus:outline-none resize-y min-h-[240px] overflow-x-auto whitespace-pre"
+                className="flex-1 p-3 text-[13px] leading-5 font-mono bg-code text-foreground placeholder:text-muted focus:outline-none resize-y min-h-60 overflow-x-auto whitespace-pre"
                 style={{ tabSize: 2 }}
               />
             </div>
@@ -272,21 +272,21 @@ export default function SnippetNew() {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Context, dependencies, usage caveats or docs in markdown..."
               rows={4}
-              className="w-full p-3 text-[13px] bg-card border border-strong rounded-[6px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-y"
+              className="w-full p-3 text-[13px] bg-card border border-strong rounded-md text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-y"
             />
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-3">
             <Link
               to="/dashboard"
-              className="h-[36px] px-4 text-[13px] font-medium text-muted hover:text-foreground inline-flex items-center"
+              className="h-9 px-4 text-[13px] font-medium text-muted hover:text-foreground inline-flex items-center"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="h-[36px] px-5 bg-primary text-primary-foreground text-[13px] font-medium rounded-[6px] hover:opacity-90 transition-opacity inline-flex items-center gap-2 disabled:opacity-50 cursor-pointer hover:cursor-pointer"
+              className="h-9 px-5 bg-primary text-primary-foreground text-[13px] font-medium rounded-md hover:opacity-90 transition-opacity inline-flex items-center gap-2 disabled:opacity-50 cursor-pointer hover:cursor-pointer"
             >
               {saving ? (
                 <>
@@ -301,7 +301,7 @@ export default function SnippetNew() {
         </div>
 
         <div className="lg:col-span-4">
-          <div className="border border-border rounded-[8px] bg-surface p-5 space-y-4">
+          <div className="border border-border rounded-lg bg-surface p-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono uppercase text-muted tracking-wider font-semibold">
                 AI Preview
@@ -310,7 +310,7 @@ export default function SnippetNew() {
                 type="button"
                 onClick={handleGeneratePreview}
                 disabled={previewLoading}
-                className="inline-flex items-center gap-1.5 text-[12px] text-primary hover:underline font-medium cursor-pointer hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-1.5 text-[12px] text-primary hover:underline font-medium cursor-pointer hover:cursor-pointer disabled:opacity-50"
               >
                 {previewLoading ? (
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -326,11 +326,11 @@ export default function SnippetNew() {
                 <label className="block text-[13px] font-medium text-foreground mb-1.5">
                   Tags
                 </label>
-                <div className="flex flex-wrap gap-1.5 mb-2 min-h-[26px]">
+                <div className="flex flex-wrap gap-1.5 mb-2 min-h-6.5">
                   {previewTags.map((t) => (
                     <span
                       key={t}
-                      className="inline-flex items-center gap-1 h-[24px] px-2 text-[12px] font-mono bg-muted text-muted hover:text-foreground rounded-[4px] border border-border"
+                      className="inline-flex items-center gap-1 h-6 px-2 text-[12px] font-mono bg-muted text-muted hover:text-foreground rounded-sm border border-border"
                     >
                       #{t}
                       <button
@@ -351,7 +351,7 @@ export default function SnippetNew() {
                     onChange={(e) => setNewTagInput(e.target.value)}
                     onKeyDown={handleAddTag}
                     placeholder="Add tag and press Enter"
-                    className="flex-1 h-[30px] px-2.5 text-[12px] font-mono bg-card border border-strong rounded-[4px] text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
+                    className="flex-1 h-7.5 px-2.5 text-[12px] font-mono bg-card border border-strong rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
                   />
                   <button
                     type="button"
@@ -369,7 +369,7 @@ export default function SnippetNew() {
                         setNewTagInput("");
                       }
                     }}
-                    className="h-[30px] px-2 text-[12px] bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 text-foreground rounded-[4px] border border-border cursor-pointer flex items-center justify-center"
+                    className="h-7.5 px-2 text-[12px] bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 text-foreground rounded-sm border border-border cursor-pointer flex items-center justify-center"
                     aria-label="Add tag"
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -386,7 +386,7 @@ export default function SnippetNew() {
                   onChange={(e) => setPreviewSummary(e.target.value)}
                   placeholder="Summary sentence in 10 to 20 words..."
                   rows={3}
-                  className="w-full text-[13px] leading-relaxed text-foreground bg-card p-2.5 rounded-[6px] border border-strong placeholder:text-muted focus:outline-none focus:border-primary resize-y"
+                  className="w-full text-[13px] leading-relaxed text-foreground bg-card p-2.5 rounded-md border border-strong placeholder:text-muted focus:outline-none focus:border-primary resize-y"
                 />
               </div>
             </div>

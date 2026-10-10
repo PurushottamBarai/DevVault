@@ -56,6 +56,20 @@
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   }
 
+  button,
+  [role="button"],
+  a,
+  select,
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"],
+  button[disabled] {
+    cursor: not-allowed;
+  }
+
   code, pre, kbd {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
