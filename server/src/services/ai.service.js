@@ -1,4 +1,3 @@
-import Groq from 'groq-sdk';
 import { GoogleGenAI } from '@google/genai';
 import { normalizeTags } from '../utils/tag.util.js';
 
@@ -34,21 +33,30 @@ Language: ${language}
 Code:
 ${(content || '').slice(0, 6000)}`;
 
-  // 1. Try Groq (Ultra-fast: ~0.2 - 0.8s)
+  // 1. Try Groq via native fetch (Ultra-fast: ~0.2 - 0.8s)
   const groqKey = process.env.GROQ_API_KEY;
   if (groqKey) {
     try {
-      const groq = new Groq({ apiKey: groqKey });
-      const completion = await groq.chat.completions.create({
-        messages: [{ role: 'user', content: prompt }],
-        model: 'qwen/qwen3.8-27b',
-        response_format: { type: 'json_object' }
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${groqKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: prompt }],
+          model: 'qwen/qwen3.8-27b',
+          response_format: { type: 'json_object' }
+        })
       });
-      const text = completion.choices[0]?.message?.content || '{}';
-      const parsed = JSON.parse(cleanJson(text));
-      const normalized = normalizeResult(parsed);
-      if (normalized.tags.length > 0 || normalized.summary) {
-        return normalized;
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.choices?.[0]?.message?.content || '{}';
+        const parsed = JSON.parse(cleanJson(text));
+        const normalized = normalizeResult(parsed);
+        if (normalized.tags.length > 0 || normalized.summary) {
+          return normalized;
+        }
       }
     } catch (groqErr) {
       console.warn('Groq generation fallback:', groqErr.message);
